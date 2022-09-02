@@ -1,0 +1,31 @@
+<div class="login">
+  <h3 class="auth-heading text-center mt-5 mb-4">LogIn</h3>
+  <form
+    class="auth-form login-form"
+    [formGroup]="loginForm"
+    (ngSubmit)="login()"
+  >
+    <div class="mb-3">
+      <label for="email">Username:</label>
+      <input class="form-control" formControlName="username" />
+    </div>
+    <br />
+    <div class="mb-3">
+      <label for="pwd">Password:</label>
+      <input
+        id="password"
+        name="password"
+        formControlName="password"
+        type="password"
+        class="form-control"
+      />
+    </div>
+    <br />
+    <div *ngIf="error">
+      <span class="invalid-feedback mb-3 d-block">{{ error }}</span>
+    </div>
+    <div class="text-center">
+      <button class="button-2" type="submit">Log In</button>
+    </div>
+  </form>
+</div>
