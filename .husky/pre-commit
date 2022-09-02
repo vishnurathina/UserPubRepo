@@ -3,3 +3,4 @@
 
 npm run prettier
 ng lint
+ng build
