@@ -11,6 +11,7 @@ module.exports = function (config) {
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
       require("@angular-devkit/build-angular/plugins/karma"),
+      require('karma-sonarqube-reporter')
     ],
     client: {
       jasmine: {
@@ -21,6 +22,25 @@ module.exports = function (config) {
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
+    sonarqubeReporter: {
+      basePath: 'src/app', // test files folder
+      filePattern: '**/*spec.ts', // test files glob pattern
+      encoding: 'utf-8', // test files encoding
+      outputFolder: 'reports', // report destination
+      legacyMode: false, // report for Sonarqube < 6.2 (disabled)
+      reportName: function (metadata) {
+        // report name callback, but accepts also a
+        // string (file name) to generate a single file
+        /**
+         * Report metadata array:
+         * - metadata[0] = browser name
+         * - metadata[1] = browser version
+         * - metadata[2] = plataform name
+         * - metadata[3] = plataform version
+         */
+        return 'sonarqube_report.xml';
+      },
+    },
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
     },
@@ -29,7 +49,7 @@ module.exports = function (config) {
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }],
     },
-    reporters: ["progress", "kjhtml"],
+    reporters: ["progress", "kjhtml", "sonarqube"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
